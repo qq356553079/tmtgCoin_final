@@ -53,3 +53,19 @@ investor
 ```
 a free sale Participants 
 ```
+
+## Features 
+
+* [Truffle](https://github.com/trufflesuite/truffle) 
+
+* [Openzeppelin-solidity](https://github.com/OpenZeppelin/openzeppelin-solidity) 
+
+* [Mocha](https://github.com/mochajs/mocha) 
+
+* [Chai](https://github.com/chaijs/chai) 
+
+* [Babel](https://github.com/babel/babel) 
+
+## Support 
+
+Please [Join a preSale](https://ico.dgex.io) 
