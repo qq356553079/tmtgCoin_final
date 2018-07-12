@@ -179,8 +179,8 @@ module.exports = {
                         logger.debug("10. paused : " + await tmtgFinal.paused());
                         logger.debug("10. unpause : " + await tmtgFinal.unpause({from:admin}).should.be.fulfilled);
                         logger.debug("10. paused : " + await tmtgFinal.paused());
-                        logger.debug("8. blacklist :" + await tmtgFinal.blacklist(anonymous2,{from:admin}).should.be.fulfilled);
-                        logger.debug("8. unBlacklist " + await tmtgFinal.unblacklist(anonymous2,{from:admin}).should.be.fulfilled);
+                        logger.debug("10. blacklist :" + await tmtgFinal.blacklist(anonymous2,{from:admin}).should.be.fulfilled);
+                        logger.debug("10. unBlacklist " + await tmtgFinal.unblacklist(anonymous2,{from:admin}).should.be.fulfilled);
                     })
                 })
 
