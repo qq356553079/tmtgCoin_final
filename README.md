@@ -66,6 +66,16 @@ a free sale Participants
 
 * [Babel](https://github.com/babel/babel) 
 
-## Support 
+## ICO SALE ( ~ 18/07/25) 
+Please [Official ICO](https://ico.dgex.io) 
 
-Please [Join a preSale](https://ico.dgex.io) 
+## OUR PAGE
+Join now TMTG !!! Let's win together
+
+* [MAIN HOMEPAGE](https://dgex.io) 
+
+* [Twitter](https://twitter.com/tmtgdge)
+
+* [Facebook](https://www.facebook.com/TheMidasTouchGold) 
+
+* [Telegram](t.me/themidastoucgold) 
