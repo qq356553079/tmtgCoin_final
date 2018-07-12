@@ -1,4 +1,5 @@
-# TMTG COIN ( ERC 20 )
+# The Midas Touch Gold (ERC 20)
+Build trust and value in new token and blockchain trading ecosystem with TMTG Coin.
 ## ROLE
 ```
 hiddenOwner / superOwner / owner / centralBanker/ admin / superInvestor / investor / cex / anonymous
@@ -39,7 +40,7 @@ have the ability to pause transaction
 have the ability to blacklisting & whitelisting
 ```
 
-superInvestor ( for presale investor)
+superInvestor (for presale investor)
 
 ```
 have the ability to tokenlock
