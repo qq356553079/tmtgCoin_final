@@ -1,4 +1,4 @@
-# test dgex.js
+# TMTG COIN ( ERC 20 )
 ```
 mods
 ```
