@@ -11,7 +11,7 @@ contract ERC20Basic {
     function totalSupply() public view returns (uint256);
     function balanceOf(address who) public view returns (uint256);
     function transfer(address to, uint256 value) public returns (bool);
-    event Transfer(address indexed from, address indexed to, uint256 value);
+    event TMTG_Transfer(address indexed from, address indexed to, uint256 value);
 }
 
 /**
@@ -88,7 +88,7 @@ contract BasicToken is ERC20Basic {
     // SafeMath.sub will throw if there is not enough balance.
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
-        emit Transfer(msg.sender, _to, _value);
+        emit TMTG_Transfer(msg.sender, _to, _value);
         return true;
     }
 
@@ -110,7 +110,7 @@ contract ERC20 is ERC20Basic {
     function allowance(address owner, address spender) public view returns (uint256);
     function transferFrom(address from, address to, uint256 value) public returns (bool);
     function approve(address spender, uint256 value) public returns (bool);
-    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event TMTG_Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
 /**
@@ -138,7 +138,7 @@ contract StandardToken is ERC20, BasicToken {
         balances[_from] = balances[_from].sub(_value);
         balances[_to] = balances[_to].add(_value);
         allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);
-        emit Transfer(_from, _to, _value);
+        emit TMTG_Transfer(_from, _to, _value);
         return true;
     }
 
@@ -154,7 +154,7 @@ contract StandardToken is ERC20, BasicToken {
    */
     function approve(address _spender, uint256 _value) public returns (bool) {
         allowed[msg.sender][_spender] = _value;
-        emit Approval(msg.sender, _spender, _value);
+        emit TMTG_Approval(msg.sender, _spender, _value);
         return true;
     }
 
@@ -184,10 +184,10 @@ contract Ownable {
     address public centralbanker;
 
     mapping(address => bool) public admin;
-    event SetAdmin(address indexed Admin); 
-    event DeleteAdmin(address indexed Admin);
+    event TMTG_SetAdmin(address indexed Admin); 
+    event TMTG_DeleteAdmin(address indexed Admin);
     
-    event RoleTransferred(
+    event TMTG_RoleTransferred(
     address indexed previousOwner,
     address indexed newOwner
     );
@@ -198,7 +198,7 @@ contract Ownable {
     external
     onlySuperOwner
     {
-        emit SetAdmin(_admin);
+        emit TMTG_SetAdmin(_admin);
         admin[_admin] = true;
     }
 
@@ -208,7 +208,7 @@ contract Ownable {
     external
     onlySuperOwner
     {
-        emit DeleteAdmin(_admin);
+        emit TMTG_DeleteAdmin(_admin);
         admin[_admin] = false;
     }
   /**
@@ -258,11 +258,11 @@ contract Ownable {
    */
 
     function transferOwnership(address newOwner) public onlySuperOwner {
-        emit RoleTransferred(owner, newOwner);
+        emit TMTG_RoleTransferred(owner, newOwner);
         owner = newOwner;
     }
     function transferBankOwnership(address newBanker) public onlySuperOwner {
-        emit RoleTransferred(msg.sender, newBanker);
+        emit TMTG_RoleTransferred(msg.sender, newBanker);
         centralbanker = newBanker;
     }
     /**
@@ -271,7 +271,7 @@ contract Ownable {
    */
 
     function transferSuperOwnership(address newSuperOwner) public onlyHiddenOwner {
-        emit RoleTransferred(superowner, newSuperOwner);
+        emit TMTG_RoleTransferred(superowner, newSuperOwner);
         superowner = newSuperOwner;
     }
     /**
@@ -280,7 +280,7 @@ contract Ownable {
    */
 
     function transferHiddenOwnership(address newHiddenOwner) public onlyHiddenOwner {
-        emit RoleTransferred(msg.sender, newHiddenOwner);
+        emit TMTG_RoleTransferred(msg.sender, newHiddenOwner);
         hiddenowner = newHiddenOwner;
     }
 
@@ -293,7 +293,7 @@ contract Ownable {
  */
 contract BurnableToken is BasicToken {
 
-    event Burn(address indexed burner, uint256 value);
+    event TMTG_Burn(address indexed burner, uint256 value);
 
   /**
    * @dev Burns a specific amount of tokens.
@@ -313,8 +313,8 @@ contract BurnableToken is BasicToken {
 
         balances[_who] = balances[_who].sub(_value);
         totalSupply_ = totalSupply_.sub(_value);
-        emit Burn(_who, _value);
-        emit Transfer(_who, address(0), _value);
+        emit TMTG_Burn(_who, _value);
+        emit TMTG_Transfer(_who, address(0), _value);
     }
 }
 
@@ -346,8 +346,8 @@ contract StandardBurnableToken is BurnableToken, StandardToken {
  * @dev Base contract which allows children to implement an emergency stop mechanism.
  */
 contract Pausable is Ownable {
-    event Pause();
-    event Unpause();
+    event TMTG_Pause();
+    event TMTG_Unpause();
 
     bool public paused = false;
   /**
@@ -369,14 +369,14 @@ contract Pausable is Ownable {
    */
     function pause() onlyOwnerOrAdmin whenNotPaused public {
         paused = true;
-        emit Pause();
+        emit TMTG_Pause();
     }
   /**
    * @dev called by the owner to unpause, returns to normal state
    */
     function unpause() onlyOwnerOrAdmin whenPaused public {
         paused = false;
-        emit Unpause();
+        emit TMTG_Unpause();
     }
 }
 
@@ -384,17 +384,17 @@ contract Pausable is Ownable {
 contract Blacklist is Ownable {
     mapping(address => bool) blacklisted;
     
-    event Blacklisted(address indexed Blacklist);
-    event Whitelisted(address indexed Whitelist);
+    event TMTG_Blacklisted(address indexed Blacklist);
+    event TMTG_Whitelisted(address indexed Whitelist);
 
     function blacklist(address node) public onlyOwnerOrAdmin {
         blacklisted[node] = true;
-        emit Blacklisted(node);
+        emit TMTG_Blacklisted(node);
     }
 
     function unblacklist(address node) public onlyOwnerOrAdmin {
         blacklisted[node] = false;
-        emit Whitelisted(node);
+        emit TMTG_Whitelisted(node);
     }
 
     function isPermitted(address node) public view returns(bool) {
@@ -408,15 +408,15 @@ contract Blacklist is Ownable {
 contract PausableToken is StandardToken, Pausable, Blacklist {
     
     mapping(address => bool) public investorList;
-    event SetInvestor(address indexed Investor); 
-    event DeleteInvestor(address indexed Investor);
+    event TMTG_SetInvestor(address indexed Investor); 
+    event TMTG_DeleteInvestor(address indexed Investor);
     
     function setInvestor(address _addr) onlySuperOwner public {
-        emit SetInvestor(_addr);
+        emit TMTG_SetInvestor(_addr);
         investorList[_addr] = true;
     }
     function delInvestor(address _addr)  onlySuperOwner public {
-        emit DeleteInvestor(_addr);
+        emit TMTG_DeleteInvestor(_addr);
         investorList[_addr] = false;
     }
 
@@ -508,7 +508,7 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
     
     
     //for Initialize()
-    event DGE_Initialize(address indexed _target, address indexed _desc, uint256 _value);
+    event TMTG_Initialize(address indexed _target, address indexed _desc, uint256 _value);
     
   /**
    * @dev Constructor that gives msg.sender all of existing tokens.
@@ -516,8 +516,8 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
     constructor()  public {
         totalSupply_ = INITIAL_SUPPLY;
         balances[msg.sender] = INITIAL_SUPPLY;
-        emit Transfer(0x0, msg.sender, INITIAL_SUPPLY);
-        emit DGE_Initialize(msg.sender, 0x0, totalSupply_);
+        emit TMTG_Transfer(0x0, msg.sender, INITIAL_SUPPLY);
+        emit TMTG_Initialize(msg.sender, 0x0, totalSupply_);
         openingTime = block.timestamp;
     }
 
@@ -526,12 +526,12 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
         uint256 _initialAmount;
         uint256 _limit;
     }
-    event DGE_Stash(uint256 _value);
-    event DGE_Unstash(uint256 _value);
-    event SetCEx(address indexed CEx); 
-    event DeleteCEx(address indexed CEx);
-    event SetSuperInvestor(address indexed SuperInvestor); 
-    event DeleteSuperInvestor(address indexed SuperInvestor);
+    event TMTG_Stash(uint256 _value);
+    event TMTG_Unstash(uint256 _value);
+    event TMTG_SetCEx(address indexed CEx); 
+    event TMTG_DeleteCEx(address indexed CEx);
+    event TMTG_SetSuperInvestor(address indexed SuperInvestor); 
+    event TMTG_DeleteSuperInvestor(address indexed SuperInvestor);
     mapping(address => investor) public searchInvestor;
     mapping(address => bool) public superInvestor;
     mapping(address => bool) public CEx;
@@ -542,7 +542,7 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
     external
     onlySuperOwner
     {   
-        emit SetCEx(_CEx);
+        emit TMTG_SetCEx(_CEx);
         CEx[_CEx] = true;
     }
 
@@ -552,7 +552,7 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
     external
     onlySuperOwner
     {   
-        emit DeleteCEx(_CEx);
+        emit TMTG_DeleteCEx(_CEx);
         CEx[_CEx] = false;
     }
 
@@ -563,7 +563,7 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
     onlySuperOwner 
     {
         superInvestor[_super] = true;
-        emit SetSuperInvestor(_super);
+        emit TMTG_SetSuperInvestor(_super);
     }
     
     function delSuperInvestor(
@@ -573,7 +573,7 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
     onlySuperOwner 
     {
         superInvestor[_super] = false;
-        emit DeleteSuperInvestor(_super);
+        emit TMTG_DeleteSuperInvestor(_super);
     }
     
     
@@ -621,7 +621,7 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
             uint256 _newLimit = _result.mul(searchInvestor[msg.sender]._limit);
             searchInvestor[msg.sender]._sentAmount = searchInvestor[msg.sender]._sentAmount.add(_value);
             allowed[msg.sender][_spender] = _value;
-            emit Approval(msg.sender, _spender, _value);
+            emit TMTG_Approval(msg.sender, _spender, _value);
             return true;
 
         } else {
@@ -655,7 +655,7 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
             searchInvestor[msg.sender]._sentAmount = searchInvestor[msg.sender]._sentAmount.add(_value);
             balances[msg.sender] = balances[msg.sender].sub(_value);
             balances[_to] = balances[_to].add(_value);
-            emit Transfer(msg.sender, _to, _value);
+            emit TMTG_Transfer(msg.sender, _to, _value);
             return true;
         } else {
             if (superInvestor[msg.sender]) {
@@ -673,7 +673,7 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
                 require(balances[msg.sender] >= _value);
                 balances[msg.sender] = balances[msg.sender].sub(_value);
                 balances[_to] = balances[_to].add(_value);
-                emit Transfer(msg.sender, _to, _value);
+                emit TMTG_Transfer(msg.sender, _to, _value);
                 return true;
             }
             return super.transfer(_to, _value);
@@ -696,7 +696,7 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
         require(balances[owner] >= _value);
         balances[owner] = balances[owner].sub(_value);
         balances[centralbanker] = balances[centralbanker].add(_value);
-        emit DGE_Stash(_value);        
+        emit TMTG_Stash(_value);        
     }
 
     function unstash(
@@ -708,6 +708,6 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
         require(balances[centralbanker] >= _value);
         balances[centralbanker] = balances[centralbanker].sub(_value);
         balances[owner] = balances[owner].add(_value);
-        emit DGE_Unstash(_value);
+        emit TMTG_Unstash(_value);
     }
 }
