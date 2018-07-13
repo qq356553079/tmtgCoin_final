@@ -1,7 +1,7 @@
 {
   "name": "tmtg_utest",
   "version": "0.0.1",
-  "description": "",
+  "description": "Build trust and value in new token and blockchain trading ecosystem with TMTG Coin.\r ## ROLE\r ```\r hiddenOwner / superOwner / owner / centralBanker/ admin / superInvestor / investor / cex / anonymous\r ```\r ## ROLE_EXPLAIN",
   "main": "truffle-config.js",
   "directories": {
     "test": "test"
@@ -18,11 +18,12 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-bignumber": "^2.0.2",
+    "eth-gas-reporter": "^0.1.9",
     "solium": "^1.1.7",
-    "truffle-hdwallet-provider" :"^0.0.5" 
+    "truffle-hdwallet-provider": "^0.0.5"
   },
   "scripts": {
-    "coverage" : "SOLIDITY_COVERAGE=true ./node_modules/.bin/solidity-coverage",
+    "coverage": "SOLIDITY_COVERAGE=true ./node_modules/.bin/solidity-coverage",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "DGE",

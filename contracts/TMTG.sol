@@ -502,7 +502,8 @@ contract HasNoEther is Ownable {
 contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEther {
     string public constant name = "The Midas Touch Gold"; // solium-disable-line uppercase
     string public constant symbol = "TMTG"; // solium-disable-line uppercase
-    uint256 public constant INITIAL_SUPPLY = 1e10 * (10 ** uint256(18));
+    uint8 public constant decimals = 18;
+    uint256 public constant INITIAL_SUPPLY = 1e10 * (10 ** uint256(decimals));
     uint256 public openingTime;
     
     
@@ -610,7 +611,7 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
         if(investorList[msg.sender]) {
             require(isPermitted(msg.sender));
             require(isPermitted(_spender));
-            require(_newLimit.add(9 * (10 ** uint256(18))) >= searchInvestor[msg.sender]._sentAmount);
+            require(_newLimit.add(9 * (10 ** uint256(decimals))) >= searchInvestor[msg.sender]._sentAmount);
             require(_spender != address(0));
             require(balances[msg.sender] >= _value);
             require(balances[_spender].add(_value) > balances[_spender]);
@@ -650,7 +651,7 @@ contract TMTG is StandardBurnableToken, PausableToken, CanReclaimToken, HasNoEth
             uint256 timeValue = presentTime.sub(openingTime);
             uint256 _result = timeValue.div(30 days);
             uint256 _newLimit = _result.mul(searchInvestor[msg.sender]._limit);
-            require(_newLimit.add(9 * (10 ** uint256(18))) >= searchInvestor[msg.sender]._sentAmount.add(_value));
+            require(_newLimit.add(9 * (10 ** uint256(decimals))) >= searchInvestor[msg.sender]._sentAmount.add(_value));
             searchInvestor[msg.sender]._sentAmount = searchInvestor[msg.sender]._sentAmount.add(_value);
             balances[msg.sender] = balances[msg.sender].sub(_value);
             balances[_to] = balances[_to].add(_value);

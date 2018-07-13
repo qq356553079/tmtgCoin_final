@@ -11,6 +11,10 @@
  *     gasPrice: 10000000000,
  *   },
  */
+//http://truffleframework.com/tutorials/using-infura-custom-provider
+const HDWalletProvider = require('truffle-hdwallet-provider');
+var infura_apikey = "JHHCGziD8etFT6ho4Flz";
+var mnemonic = "orchard west leader hockey space host grit aerobic penalty topple check ride"
 
 require('babel-register')
 require('babel-polyfill')
@@ -21,16 +25,32 @@ module.exports = {
     networks: {
       development: {
         host: '127.0.0.1',
-        port: 7545,
+        port: 8545,
         network_id: "*"
       },
+      ropsten:{
+        provider : new HDWalletProvider(mnemonic, "https://ropsten.infura.io/"+infura_apikey),
+        network_id : 3
+      }, 
       coverage: {
         host: "localhost",
         network_id: "*",
         port: 8555,         // <-- If you change this, also set the port option in .solcover.js.
         gas: 0xfffffffffff, // <-- Use this high gas value
         gasPrice: 0x01      // <-- Use this low gas price
-      }
+      },
+      ganache: {
+        host: 'localhost',
+        port: 8545,
+        network_id : '*'
+      },
+      mocha: {
+        reporter : 'eth-gas-reporter',
+        reporterOptions : {
+          currency : 'KRW',
+          gasPrice: 21
+        }
+      },
     }
   };
   
